@@ -166,7 +166,7 @@ export default function Index() {
 
             {/* TOP-LEFT: Enter amount + Send */}
             <motion.div
-              className="absolute -top-10 left-2 sm:-top-12 sm:-left-10 md:-top-12 md:-left-12 z-30 will-change-transform transform-gpu"
+              className="absolute -top-1 left-2 sm:-top-1 sm:-left-10 md:-top-1 md:-left-12 z-30 will-change-transform transform-gpu"
               initial={true}
               animate={float(10, 0.2)}
               whileHover={{ y: -12, scale: 1.03 }}
@@ -213,7 +213,7 @@ export default function Index() {
 
             {/* RIGHT-BOTTOM: tilted credit card */}
             <motion.div
-              className="absolute bottom-6 right-2 sm:bottom-10 sm:right-4 md:bottom-12 md:-right-6 z-40 will-change-transform transform-gpu"
+              className="absolute bottom-6 right-2 sm:bottom-10 sm:right-4 md:bottom-12 md:right-6 z-40 will-change-transform transform-gpu"
               initial={true}
               style={{ rotate: -10 }}
               animate={floatTilt(-10, 0.3)}
@@ -224,7 +224,7 @@ export default function Index() {
                   <span className="h-6 w-6 rounded-full bg-slate-600/60"></span>
                   <span className="h-6 w-6 rounded-full bg-slate-700/80"></span>
                 </div>
-                <div className="text-sm tracking-wide opacity-90">Credit Crad</div>
+                <div className="text-sm tracking-wide opacity-90">Credit Card</div>
                 <div className="flex items-end justify-between opacity-90">
                   <span className="tracking-[0.3em] text-sm">●●●● 1234</span>
                   <span className="text-xs">09/25</span>
