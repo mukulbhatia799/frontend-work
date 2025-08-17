@@ -46,64 +46,51 @@ export default function Index() {
   }, []);
 
   const prefersReduced = useReducedMotion();
-
   const float = (distance = 10, delay = 0) =>
     prefersReduced
       ? {}
       : {
           y: [0, -distance, 0],
-          transition: {
-            duration: 3.2,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-            delay,
-          },
+          transition: { duration: 3.2, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay },
         };
-
   const floatTilt = (base = -10, delay = 0) =>
     prefersReduced
       ? {}
       : {
           rotate: [base, base - 4, base],
           y: [0, -6, 0],
-          transition: {
-            duration: 3.4,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-            delay,
-          },
+          transition: { duration: 3.4, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay },
         };
 
   return (
     <main>
       <Nav />
 
-      {/* HERO */}
+      {/* ========== HERO (mobile-first) ========== */}
       <section
         id="hero"
-        className="container-tight grid md:grid-cols-2 gap-10 lg:gap-12 pt-6 md:pt-10 pb-14 md:pb-24"
+        className="container-tight grid md:grid-cols-2 gap-8 lg:gap-12 pt-6 md:pt-10 pb-12 md:pb-20"
       >
-        <div className="flex flex-col items-start justify-center">
-          {/* Title + curved swoosh */}
+        {/* LEFT: text */}
+        <div className="flex flex-col items-start md:items-start text-center md:text-left justify-center">
           <div className="relative w-full">
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: -15 }}
-              transition={{ duration: 0.7 }}
-              className="font-extrabold leading-[1.1] pb-10 md:pb-14
-                         text-[clamp(2.1rem,6vw,3.75rem)] md:text-6xl"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="font-extrabold leading-[1.08] pb-8 md:pb-12
+                         mx-auto md:mx-0
+                         text-[clamp(2rem,6.5vw,3.75rem)]"
             >
-              We're here to <span className="text-emerald-600">Increase</span> your{" "}
+              We’re here to <span className="text-emerald-600">Increase</span> your{" "}
               <span>Productivity</span>
             </motion.h1>
 
-            {/* Curved swoosh (smaller; sits just under the word) */}
+            {/* Curved swoosh under the word */}
             <svg
               aria-hidden
               preserveAspectRatio="none"
-              className="pointer-events-none select-none absolute left-0 bottom-2 md:bottom-3 w-[260px] sm:w-[360px] md:w-[520px]"
+              className="pointer-events-none select-none absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 bottom-1.5 md:bottom-3 w-[min(78%,520px)]"
               viewBox="0 0 520 80"
               fill="none"
             >
@@ -112,195 +99,172 @@ export default function Index() {
             </svg>
           </div>
 
-          {/* Subtext */}
-          <p className="mt-4 sm:mt-6 text-slate-600 max-w-xl font-semibold text-[clamp(0.95rem,1.8vw,1.125rem)]">
-            Let's make your work more organized and easy using the Taskio dashboard with many of the latest
+          <p className="mt-4 md:mt-6 text-slate-600 mx-auto md:mx-0 max-w-[42rem] font-medium text-[clamp(0.98rem,2.6vw,1.125rem)]">
+            Let’s make your work more organized and easy using the Taskio dashboard with many of the latest
             features for managing work every day.
           </p>
 
-          {/* CTAs */}
-          <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
-            <a href="#cta" className="btn-primary">
-              Try free trial
-            </a>
+          <div className="mt-6 md:mt-8 flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-4">
+            <a href="#cta" className="btn-primary">Try free trial</a>
             <button className="btn-ghost">View Demo</button>
           </div>
         </div>
 
-        {/* Right visual */}
+        {/* RIGHT: visual (scales with aspect) */}
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
+          initial={{ opacity: 0, x: 18 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
           className="relative"
         >
-          <div className="relative p-2 sm:p-4 isolate">
-            {/* Green board */}
-            <div className="relative overflow-hidden rounded-3xl bg-emerald-300/40 border border-emerald-200 shadow-xl w-full max-w-[540px] h-[340px] sm:h-[400px] md:h-[430px] ml-auto">
-              <svg
-                className="absolute inset-0 w-full h-full opacity-70"
-                viewBox="0 0 540 430"
-                fill="none"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M10 300 L120 220 L200 280 L250 160 L330 240 L410 140 L530 200"
-                  stroke="#10B981"
-                  strokeWidth="8"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M0 340 L90 260 L170 320 L230 220 L310 300 L390 180 L520 240"
-                  stroke="#059669"
-                  strokeOpacity="0.7"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                />
+          <div className="relative p-2 sm:p-3 isolate">
+            {/* Aspect box to make overlays scale on mobile */}
+            <div className="relative overflow-hidden rounded-3xl bg-emerald-300/40 border border-emerald-200 shadow-xl w-full max-w-[540px] aspect-[27/21] md:h-[430px] md:aspect-auto md:ml-auto">
+              {/* charty lines */}
+              <svg className="absolute inset-0 w-full h-full opacity-70" viewBox="0 0 540 430" fill="none" preserveAspectRatio="none">
+                <path d="M10 300 L120 220 L200 280 L250 160 L330 240 L410 140 L530 200" stroke="#10B981" strokeWidth="8" strokeLinecap="round" />
+                <path d="M0 340 L90 260 L170 320 L230 220 L310 300 L390 180 L520 240" stroke="#059669" strokeOpacity="0.7" strokeWidth="6" strokeLinecap="round" />
               </svg>
               <img
                 src="/images/person.png"
                 alt="Person"
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[330px] sm:h-[390px] md:h-[420px] w-auto object-contain drop-shadow-2xl z-10"
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[88%] md:h-[420px] w-auto object-contain drop-shadow-2xl z-10"
               />
+
+              {/* Overlay chips use % on mobile, px on md+ for pixel-perfect */}
+              {/* TOP-LEFT: Enter amount */}
+              <motion.div
+                className="absolute z-30 will-change-transform transform-gpu"
+                style={{ top: "2%", left: "4%" }}
+                initial={false}
+                animate={float(10, 0.2)}
+                whileHover={{ y: -10, scale: 1.03 }}
+              >
+                <div className="flex items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-2.5 text-[clamp(0.85rem,2.6vw,1rem)]">
+                  <div>
+                    <div className="text-slate-400 text-[11px] sm:text-xs">Enter amount</div>
+                    <div className="font-semibold">$450.00</div>
+                  </div>
+                  <button className="rounded-xl bg-emerald-500 text-white font-medium px-3.5 py-1.5">Send</button>
+                </div>
+              </motion.div>
+
+              {/* LEFT-MIDDLE: purple tick */}
+              <motion.div
+                className="absolute z-30 will-change-transform transform-gpu"
+                style={{ top: "42%", left: "3%" }}
+                initial={false}
+                animate={float(8, 0.35)}
+                whileHover={{ scale: 1.05, rotate: -4 }}
+              >
+                <div className="h-8 w-8 grid place-items-center rounded-xl bg-indigo-600 text-white shadow-soft">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+              </motion.div>
+
+              {/* TOP-RIGHT: orange database icon */}
+              <motion.div
+                className="absolute z-30 will-change-transform transform-gpu"
+                style={{ top: "3%", right: "3%" }}
+                initial={false}
+                animate={float(8, 0.5)}
+              >
+                <div className="h-9 w-9 grid place-items-center rounded-xl bg-orange-100 text-orange-700 shadow-soft">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <ellipse cx="12" cy="6" rx="6" ry="3" stroke="currentColor" strokeWidth="2" />
+                    <path d="M6 6v6c0 1.7 2.7 3 6 3s6-1.3 6-3V6" stroke="currentColor" strokeWidth="2" />
+                    <path d="M6 12v6c0 1.7 2.7 3 6 3s6-1.3 6-3v-6" stroke="currentColor" strokeWidth="2" />
+                  </svg>
+                </div>
+              </motion.div>
+
+              {/* RIGHT-BOTTOM: tilted credit card */}
+              <motion.div
+                className="absolute z-40 will-change-transform transform-gpu"
+                style={{ right: "2%", bottom: "8%" }}
+                initial={false}
+                animate={floatTilt(-10, 0.3)}
+                whileHover={{ y: -8, rotate: -6, scale: 1.02 }}
+              >
+                <div className="w-[180px] h-[120px] md:w-[200px] md:h-[140px] rounded-2xl bg-slate-900 text-white shadow-2xl p-4 grid grid-rows-[auto_1fr_auto] gap-2"
+                     style={{ transform: "rotate(-10deg)" }}>
+                  <div className="flex gap-2">
+                    <span className="h-6 w-6 rounded-full bg-slate-600/60"></span>
+                    <span className="h-6 w-6 rounded-full bg-slate-700/80"></span>
+                  </div>
+                  <div className="text-sm tracking-wide opacity-90">Credit Card</div>
+                  <div className="flex items-end justify-between opacity-90">
+                    <span className="tracking-[0.3em] text-sm">●●●● 1234</span>
+                    <span className="text-xs">09/25</span>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* BOTTOM-LEFT: Total Income */}
+              <motion.div
+                className="absolute z-30 will-change-transform transform-gpu"
+                style={{ left: "6%", bottom: "4%" }}
+                initial={false}
+                animate={float(10, 0.1)}
+                whileHover={{ y: -8, scale: 1.03 }}
+              >
+                <div className="bg-white rounded-2xl shadow-soft px-4 py-2.5 text-sm">
+                  <div className="text-slate-500 text-[11px] sm:text-xs">Total Income</div>
+                  <div className="font-semibold">$245.00</div>
+                </div>
+              </motion.div>
+
+              {/* BOTTOM-RIGHT: chat bubble */}
+              <motion.div
+                className="absolute z-30 will-change-transform transform-gpu"
+                style={{ right: "9%", bottom: "2%" }}
+                initial={false}
+                animate={float(8, 0.7)}
+              >
+                <div className="h-9 w-9 grid place-items-center rounded-xl bg-orange-100 text-orange-700 shadow-soft">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M21 11.5a7.5 7.5 0 0 1-10.5 6.8L5 20l1.7-4.7A7.5 7.5 0 1 1 21 11.5z" stroke="currentColor" strokeWidth="2" />
+                  </svg>
+                </div>
+              </motion.div>
             </div>
-
-            {/* TOP-LEFT: Enter amount + Send */}
-            <motion.div
-              className="absolute -top-1 left-2 sm:-top-1 sm:-left-10 md:-top-1 md:-left-12 z-30 will-change-transform transform-gpu"
-              initial={true}
-              animate={float(10, 0.2)}
-              whileHover={{ y: -12, scale: 1.03 }}
-            >
-              <div className="flex items-center gap-3 bg-white rounded-2xl shadow-soft px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base">
-                <div>
-                  <div className="text-slate-400 text-[11px] sm:text-xs">Enter amount</div>
-                  <div className="font-semibold">$450.00</div>
-                </div>
-                <button className="rounded-xl bg-emerald-500 text-white font-medium px-3.5 py-1.5 sm:px-4 sm:py-2">
-                  Send
-                </button>
-              </div>
-            </motion.div>
-
-            {/* LEFT-MIDDLE: purple tick */}
-            <motion.div
-              className="absolute left-2 top-[150px] sm:left-[-18px] sm:top-[165px] z-30 will-change-transform transform-gpu"
-              initial={true}
-              animate={float(8, 0.35)}
-              whileHover={{ scale: 1.05, rotate: -4 }}
-            >
-              <div className="h-8 w-8 sm:h-9 sm:w-9 grid place-items-center rounded-xl bg-indigo-600 text-white shadow-soft">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                  <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-            </motion.div>
-
-            {/* TOP-RIGHT: orange database icon */}
-            <motion.div
-              className="absolute top-2 right-3 sm:top-4 sm:right-6 z-30 will-change-transform transform-gpu"
-              initial={true}
-              animate={float(8, 0.5)}
-            >
-              <div className="h-9 w-9 sm:h-10 sm:w-10 grid place-items-center rounded-xl bg-orange-100 text-orange-700 shadow-soft">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                  <ellipse cx="12" cy="6" rx="6" ry="3" stroke="currentColor" strokeWidth="2" />
-                  <path d="M6 6v6c0 1.7 2.7 3 6 3s6-1.3 6-3V6" stroke="currentColor" strokeWidth="2" />
-                  <path d="M6 12v6c0 1.7 2.7 3 6 3s6-1.3 6-3v-6" stroke="currentColor" strokeWidth="2" />
-                </svg>
-              </div>
-            </motion.div>
-
-            {/* RIGHT-BOTTOM: tilted credit card */}
-            <motion.div
-              className="absolute bottom-6 right-2 sm:bottom-10 sm:right-4 md:bottom-12 md:right-6 z-40 will-change-transform transform-gpu"
-              initial={true}
-              style={{ rotate: -10 }}
-              animate={floatTilt(-10, 0.3)}
-              whileHover={{ y: -8, rotate: -6, scale: 1.02 }}
-            >
-              <div className="w-[180px] h-[120px] sm:w-[200px] sm:h-[140px] rounded-2xl bg-slate-900 text-white shadow-2xl p-4 grid grid-rows-[auto_1fr_auto] gap-2">
-                <div className="flex gap-2">
-                  <span className="h-6 w-6 rounded-full bg-slate-600/60"></span>
-                  <span className="h-6 w-6 rounded-full bg-slate-700/80"></span>
-                </div>
-                <div className="text-sm tracking-wide opacity-90">Credit Card</div>
-                <div className="flex items-end justify-between opacity-90">
-                  <span className="tracking-[0.3em] text-sm">●●●● 1234</span>
-                  <span className="text-xs">09/25</span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* BOTTOM-LEFT: Total Income */}
-            <motion.div
-              className="absolute -bottom-10 left-4 sm:-bottom-12 sm:left-8 z-30 will-change-transform transform-gpu"
-              initial={true}
-              animate={float(10, 0.1)}
-              whileHover={{ y: -8, scale: 1.03 }}
-            >
-              <div className="bg-white rounded-2xl shadow-soft px-4 sm:px-5 py-2.5 sm:py-3 text-sm">
-                <div className="text-slate-500 text-[11px] sm:text-xs">Total Income</div>
-                <div className="font-semibold">$245.00</div>
-              </div>
-            </motion.div>
-
-            {/* BOTTOM-RIGHT: chat bubble */}
-            <motion.div
-              className="absolute right-4 bottom-2 sm:right-10 sm:bottom-3 z-30 will-change-transform transform-gpu"
-              initial={true}
-              animate={float(8, 0.7)}
-            >
-              <div className="h-9 w-9 sm:h-10 sm:w-10 grid place-items-center rounded-xl bg-orange-100 text-orange-700 shadow-soft">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M21 11.5a7.5 7.5 0 0 1-10.5 6.8L5 20l1.7-4.7A7.5 7.5 0 1 1 21 11.5z"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  />
-                </svg>
-              </div>
-            </motion.div>
           </div>
         </motion.div>
       </section>
 
-      {/* TRUSTED BY */}
+      {/* ========== TRUSTED BY ========== */}
       <section className="container-tight pb-10">
         <div className="text-center">
-          <h3 className="text-[clamp(1.25rem,2.5vw,1.75rem)] font-extrabold">
+          <h3 className="text-[clamp(1.25rem,2.8vw,1.75rem)] font-extrabold">
             More than 25,000 teams use Collabs
           </h3>
 
           <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-4 text-slate-500 opacity-60">
+            {/* logos + labels unchanged */}
             <div className="flex items-center gap-2">
               <span className="grid place-items-center h-9 w-9 sm:h-10 sm:w-10 rounded-md">
                 <img src="/images/unsplash-icon.svg" alt="Unsplash" className="grayscale opacity-70 w-full h-full" />
               </span>
               <span className="font-semibold text-[18px] sm:text-[22px]">Unsplash</span>
             </div>
-
             <div className="flex items-center gap-2">
               <span className="grid place-items-center h-9 w-9 sm:h-10 sm:w-10 rounded-[4px]">
                 <img src="/images/notion-icon.svg" alt="Notion" className="grayscale opacity-70 w-full h-full" />
               </span>
               <span className="font-semibold text-[18px] sm:text-[22px]">Notion</span>
             </div>
-
             <div className="flex items-center gap-2">
               <span className="grid place-items-center h-9 w-9 sm:h-10 sm:w-10 rounded-md tracking-tight">
                 <img src="/images/intercom-icon.svg" alt="Intercom" className="grayscale opacity-70 w-full h-full" />
               </span>
               <span className="font-semibold tracking-wide uppercase text-[17px] sm:text-[21px]">INTERCOM</span>
             </div>
-
             <div className="flex items-center gap-2">
-              <span className="grid place-items-center h-9 w-9 border-[4px] sm:border-[5px] border-slate-500 rounded-md text-[24px] sm:text-[30px] font-semibold">
-                d
-              </span>
+              <span className="grid place-items-center h-9 w-9 border-[4px] sm:border-[5px] border-slate-500 rounded-md text-[24px] sm:text-[30px] font-semibold">d</span>
               <span className="font-semibold lowercase text-[18px] sm:text-[22px]">descript</span>
             </div>
-
             <div className="flex items-center gap-2">
               <span className="grid place-items-center h-9 w-9 sm:h-10 sm:w-10 rounded-full">
                 <img src="/images/grammarly-icon.svg" alt="Grammarly" className="grayscale opacity-70 w-full h-full" />
@@ -311,27 +275,27 @@ export default function Index() {
         </div>
       </section>
 
-      {/* SUPPORT SECTION */}
-      <section id="product" className="py-14 sm:py-16">
+      {/* ========== SUPPORT (stacked on mobile) ========== */}
+      <section id="product" className="py-12 sm:py-16">
         <div className="container-tight">
-          <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-start bg-gray-50 ring-1 ring-emerald-50/70 p-6 sm:p-8 md:p-12">
-            <div>
-              <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start bg-gray-50 ring-1 ring-emerald-50/70 p-5 sm:p-8 md:p-12">
+            <div className="text-center md:text-left">
+              <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-bold">
                 How we support our partner all over the world
               </h2>
-              <p className="mt-3 sm:mt-4 text-slate-600">
+              <p className="mt-3 sm:mt-4 text-slate-600 max-w-2xl mx-auto md:mx-0">
                 SaaS becomes a common delivery model for many business applications, including office
                 software, messaging software, payroll processing software, DBMS software, and management
                 software.
               </p>
 
-              <div className="mt-6 sm:mt-8 flex flex-wrap gap-8 sm:gap-12">
-                <div>
+              <div className="mt-6 sm:mt-8 flex flex-wrap justify-center md:justify-start gap-8 sm:gap-12">
+                <div className="text-center md:text-left">
                   <RatingStars rating={4.9} size={22} speed={0.8} />
                   <div className="mt-2 font-semibold">4.9 / 5 rating</div>
                   <div className="text-slate-500 text-sm">databricks</div>
                 </div>
-                <div>
+                <div className="text-center md:text-left">
                   <RatingStars rating={4.8} size={22} speed={0.8} />
                   <div className="mt-2 font-semibold">4.8 / 5 rating</div>
                   <div className="text-slate-500 text-sm">Chainalysis</div>
@@ -339,73 +303,73 @@ export default function Index() {
               </div>
             </div>
 
-            {/* RIGHT: three items */}
             <div className="space-y-7 sm:space-y-10">
-              <div className="flex items-start gap-4 sm:gap-5">
-                <span className="grid place-items-center shrink-0 h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-emerald-100 text-emerald-600">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M3 12h4l2-5 3 10 2-6h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                <div>
-                  <h3 className="text-base sm:text-lg font-semibold">Publishing</h3>
-                  <p className="text-slate-600">Plan, collaborate, and publish your content that drives meaningful engagement and growth for your brand.</p>
+              {[
+                {
+                  title: "Publishing",
+                  desc: "Plan, collaborate, and publish your content that drives meaningful engagement and growth for your brand.",
+                  icon: (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path d="M3 12h4l2-5 3 10 2-6h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  ),
+                },
+                {
+                  title: "Analytics",
+                  desc: "Analyze your performance and create gorgeous reports.",
+                  icon: (
+                    <>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 3v9h9A9 9 0 1 1 12 3z" stroke="currentColor" strokeWidth="2" fill="none" />
+                        <path d="M12 12V3a9 9 0 0 1 9 9h-9z" fill="currentColor" />
+                      </svg>
+                    </>
+                  ),
+                },
+                {
+                  title: "Engagement",
+                  desc: "Quickly navigate and engage with your audience.",
+                  icon: (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <circle cx="6" cy="6" r="3" stroke="currentColor" strokeWidth="2" />
+                      <circle cx="18" cy="6" r="3" stroke="currentColor" strokeWidth="2" />
+                      <circle cx="12" cy="18" r="3" stroke="currentColor" strokeWidth="2" />
+                      <path d="M9 7.5l6 0M7.5 8.8L10.5 15M16.5 8.8L13.5 15" stroke="currentColor" strokeWidth="2" />
+                    </svg>
+                  ),
+                },
+              ].map(({ title, desc, icon }) => (
+                <div key={title} className="flex items-start gap-4 sm:gap-5">
+                  <span className="grid place-items-center shrink-0 h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-emerald-100 text-emerald-600">
+                    {icon}
+                  </span>
+                  <div className="text-left">
+                    <h3 className="text-base sm:text-lg font-semibold">{title}</h3>
+                    <p className="text-slate-600">{desc}</p>
+                  </div>
                 </div>
-              </div>
-
-              <div className="flex items-start gap-4 sm:gap-5">
-                <span className="grid place-items-center shrink-0 h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-emerald-100 text-emerald-600">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 3v9h9A9 9 0 1 1 12 3z" stroke="currentColor" strokeWidth="2" fill="none" />
-                    <path d="M12 12V3a9 9 0 0 1 9 9h-9z" fill="currentColor" />
-                  </svg>
-                </span>
-                <div>
-                  <h3 className="text-base sm:text-lg font-semibold">Analytics</h3>
-                  <p className="text-slate-600">Analyze your performance and create gorgeous reports.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 sm:gap-5">
-                <span className="grid place-items-center shrink-0 h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-emerald-100 text-emerald-600">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <circle cx="6" cy="6" r="3" stroke="currentColor" strokeWidth="2" />
-                    <circle cx="18" cy="6" r="3" stroke="currentColor" strokeWidth="2" />
-                    <circle cx="12" cy="18" r="3" stroke="currentColor" strokeWidth="2" />
-                    <path d="M9 7.5l6 0M7.5 8.8L10.5 15M16.5 8.8L13.5 15" stroke="currentColor" strokeWidth="2" />
-                  </svg>
-                </span>
-                <div>
-                  <h3 className="text-base sm:text-lg font-semibold">Engagement</h3>
-                  <p className="text-slate-600">Quickly navigate and engage with your audience.</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* FEATURES */}
-      <section id="features" className="container-tight py-16 lg:py-20">
+      {/* ========== FEATURES (3-up -> stacked) ========== */}
+      <section id="features" className="container-tight py-14 lg:py-20">
         <div className="grid md:grid-cols-[1.1fr,1.3fr,auto] gap-6 md:gap-8 items-center">
-          <div>
-            <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold">Our Features you can get</h2>
-          </div>
-
-          <p className="text-slate-600 md:text-center max-w-2xl justify-self-center text-[clamp(0.95rem,1.8vw,1.0625rem)]">
+          <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-extrabold text-center md:text-left">
+            Our Features you can get
+          </h2>
+          <p className="text-slate-600 md:text-center max-w-2xl justify-self-center text-[clamp(0.95rem,2.1vw,1.0625rem)] mx-auto md:mx-0">
             We offer a variety of interesting features that you can help increase your productivity at work and
             manage your project easily
           </p>
-
-          <div className="md:text-right justify-self-start md:justify-self-end">
-            <button onClick={scrollToId("contact")} className="btn-primary">
-              Get Started
-            </button>
+          <div className="md:text-right justify-self-center md:justify-self-end">
+            <button onClick={scrollToId("contact")} className="btn-primary">Get Started</button>
           </div>
         </div>
 
-        {/* Cards */}
-        <div className="mt-8 md:mt-10 grid md:grid-cols-3 gap-6 md:gap-8">
+        <div className="mt-8 md:mt-10 grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
           {/* CARD 1 */}
           <div className="rounded-3xl p-5 sm:p-6 glass hover:shadow-xl transition">
             <div className="relative h-44 sm:h-52 rounded-2xl overflow-hidden bg-slate-50">
@@ -447,9 +411,7 @@ export default function Index() {
                 className="absolute left-8 right-16 top-6 h-16 sm:h-20 rounded-xl shadow-lg overflow-hidden"
                 style={{ background: "linear-gradient(135deg,#34d399 0%,#22c55e 70%)" }}
               >
-                <div className="absolute left-5 top-3 sm:top-4 text-white font-semibold text-sm sm:text-base">
-                  Document File
-                </div>
+                <div className="absolute left-5 top-3 sm:top-4 text-white font-semibold text-sm sm:text-base">Document File</div>
                 <div className="absolute left-5 top-8 sm:top-9 text-white/90 text-[11px] sm:text-xs">456 GB | 1056 Items</div>
               </div>
               <div className="absolute right-8 top-6 h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-white shadow grid place-items-center">
@@ -490,12 +452,8 @@ export default function Index() {
                     <path d="M12 3s5 6.2 5 9.2A5 5 0 1 1 7 12.2C7 9.2 12 3 12 3z" fill="currentColor" />
                   </svg>
                 </div>
-                <div className="absolute left-2 top-1/2 -translate-y-1/2 text-[11px] sm:text-xs text-black font-bold">
-                  60%
-                </div>
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[11px] sm:text-xs text-black font-bold">
-                  40%
-                </div>
+                <div className="absolute left-2 top-1/2 -translate-y-1/2 text-[11px] sm:text-xs text-black font-bold">60%</div>
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[11px] sm:text-xs text-black font-bold">40%</div>
               </div>
 
               <div className="absolute left-6 right-6 top-[88px] sm:top-[92px] space-y-2.5 sm:space-y-3">
@@ -528,13 +486,12 @@ export default function Index() {
         </div>
       </section>
 
-      {/* BENEFITS */}
-      <section id="benefits" className="py-14 sm:py-16 bg-gradient-to-r from-emerald-50/60 to-white">
-        <div className="container-tight grid md:grid-cols-2 gap-10 md:gap-12 items-center">
-          {/* LEFT */}
-          <div>
-            <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold">What Benifit Will You Get</h2>
-            <ul className="mt-6 sm:mt-8 space-y-4 sm:space-y-5">
+      {/* ========== BENEFITS (mobile overlays scale) ========== */}
+      <section id="benefits" className="py-12 sm:py-16 bg-gradient-to-r from-emerald-50/60 to-white">
+        <div className="container-tight grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="text-center md:text-left">
+            <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-extrabold">What Benifit Will You Get</h2>
+            <ul className="mt-6 sm:mt-8 space-y-4 sm:space-y-5 max-w-xl mx-auto md:mx-0 text-left">
               {[
                 "Free Consulting With Experet Saving Money",
                 "Online Banking",
@@ -548,26 +505,26 @@ export default function Index() {
                       <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
-                  <span className="text-[clamp(1rem,2vw,1.125rem)]">{item}</span>
+                  <span className="text-[clamp(1rem,2.2vw,1.125rem)]">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* RIGHT: Laptop + overlays */}
           <div className="relative isolate w-full max-w-[680px] md:ml-auto">
             <div className="rounded-3xl overflow-hidden shadow-xl ring-1 ring-black/5">
               <img
                 src="/images/laptop.png"
                 alt="Laptop"
-                className="block w-full h-[340px] sm:h-[400px] md:h-[420px] object-cover grayscale contrast-110"
+                className="block w-full h-[320px] sm:h-[400px] md:h-[420px] object-cover grayscale contrast-110"
               />
             </div>
 
             {/* 1) Amanda */}
             <motion.div
-              className="absolute -top-6 left-6 sm:-top-8 sm:left-12 z-20 will-change-transform transform-gpu"
-              initial={true}
+              className="absolute z-20 will-change-transform transform-gpu"
+              style={{ top: "-7%", left: "6%" }}
+              initial={false}
               animate={float(8, 0.15)}
               whileHover={{ y: -10, scale: 1.03 }}
             >
@@ -587,8 +544,9 @@ export default function Index() {
 
             {/* 2) Total Income */}
             <motion.div
-              className="absolute top-[140px] right-2 sm:top-[160px] sm:right-4 z-20 will-change-transform transform-gpu"
-              initial={true}
+              className="absolute z-20 will-change-transform transform-gpu"
+              style={{ top: "38%", right: "2%" }}
+              initial={false}
               animate={float(10, 0.25)}
               whileHover={{ y: -8, scale: 1.03 }}
             >
@@ -605,22 +563,24 @@ export default function Index() {
 
             {/* 3) Message icon */}
             <motion.div
-              className="absolute left-[200px] top-[170px] sm:left-[260px] sm:top-[185px] rotate-12 z-20 will-change-transform transform-gpu"
-              initial={true}
+              className="absolute z-20 will-change-transform transform-gpu"
+              style={{ left: "40%", top: "46%", rotate: "12deg" as any }}
+              initial={false}
               animate={float(6, 0.35)}
               whileHover={{ scale: 1.06, rotate: 8 }}
             >
               <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-emerald-100 text-emerald-600 shadow-soft grid place-items-center">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <path d="M3 5h18v12H8l-5 4V5z" stroke="currentColor" strokeWidth="2" />
-                </svg>``
+                </svg>
               </div>
             </motion.div>
 
             {/* 4) Money Transfer */}
             <motion.div
-              className="absolute -bottom-6 left-[110px] sm:-bottom-7 sm:left-[150px] z-20 will-change-transform transform-gpu"
-              initial={true}
+              className="absolute z-20 will-change-transform transform-gpu"
+              style={{ left: "26%", bottom: "-6%" }}
+              initial={false}
               animate={float(8, 0.45)}
               whileHover={{ y: -8, scale: 1.02 }}
             >
@@ -637,42 +597,38 @@ export default function Index() {
         </div>
       </section>
 
-      {/* PRICING */}
-      <section id="pricing" className="container-tight py-16 lg:py-20">
+      {/* ========== PRICING (cards stack; centered numbers) ========== */}
+      <section id="pricing" className="container-tight py-14 lg:py-20">
         <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold">Choose Plan That’s Right For You</h2>
+          <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-extrabold">Choose Plan That’s Right For You</h2>
           <p className="mt-3 text-slate-500">Choose plan that works best for you, feel free to contact us</p>
 
           <div className="mt-6 inline-flex rounded-2xl bg-white shadow-soft ring-1 ring-slate-100 p-1">
             <button
               type="button"
               onClick={() => setBilling("monthly")}
-              className={`px-4 sm:px-5 py-2 rounded-xl font-medium ${
-                billing === "monthly" ? "text-white bg-emerald-500 shadow" : "text-slate-600 hover:bg-slate-50"
-              }`}
+              className={`px-4 sm:px-5 py-2 rounded-xl font-medium ${billing === "monthly" ? "text-white bg-emerald-500 shadow" : "text-slate-600 hover:bg-slate-50"}`}
             >
-              Bil Monthly
+              Bill Monthly
             </button>
             <button
               type="button"
               onClick={() => setBilling("yearly")}
-              className={`px-4 sm:px-5 py-2 rounded-xl font-medium ${
-                billing === "yearly" ? "text-white bg-emerald-500 shadow" : "text-slate-600 hover:bg-slate-50"
-              }`}
+              className={`px-4 sm:px-5 py-2 rounded-xl font-medium ${billing === "yearly" ? "text-white bg-emerald-500 shadow" : "text-slate-600 hover:bg-slate-50"}`}
             >
-              Bil Yearly
+              Bill Yearly
             </button>
           </div>
         </div>
 
-        <div className="mt-8 md:mt-10 grid md:grid-cols-3 gap-6 items-stretch">
+        <div className="mt-8 md:mt-10 grid sm:grid-cols-2 md:grid-cols-3 gap-6 items-stretch">
           {/* FREE */}
-          <div className="relative rounded-[28px] bg-white border border-slate-100 shadow-xl hover:shadow-2xl p-6 sm:p-7 flex flex-col min-h-[520px] md:min-h-[560px]">
+          <div className="relative rounded-[28px] bg-white border border-slate-100 shadow-xl hover:shadow-2xl p-6 sm:p-7 flex flex-col min-h-[500px] md:min-h-[540px]">
             <div>
               <h3 className="text-xl sm:text-2xl font-bold">Free</h3>
               <p className="mt-1 text-slate-500">Have a go and test your superpowers</p>
               <div className="mt-6 text-center">
-                <div className="flex flex-col gap-[16px] sm:gap-[20px] items-center leading-none">
+                <div className="flex flex-col gap-4 items-center leading-none">
                   <span className="text-slate-400 -mb-1 text-[18px] sm:text-[20px]">$</span>
                   <AnimatedNumber value={0} className="text-5xl sm:text-6xl font-extrabold" />
                 </div>
@@ -691,41 +647,29 @@ export default function Index() {
               </div>
             </div>
             <div className="mt-auto pt-6">
-              <button
-                type="button"
-                className="w-full rounded-2xl px-5 py-3 bg-emerald-50 hover:bg-emerald-500 hover:text-white text-emerald-600 font-medium"
-              >
+              <button type="button" className="w-full rounded-2xl px-5 py-3 bg-emerald-50 hover:bg-emerald-500 hover:text-white text-emerald-600 font-medium">
                 Signup for free
               </button>
             </div>
           </div>
 
           {/* PRO */}
-          <div className="relative rounded-[28px] overflow-hidden border border-emerald-500 shadow-xl hover:shadow-2xl p-6 sm:p-7 flex flex-col min-h-[560px] md:min-h-[600px] bg-emerald-500 text-white">
-            {/* hide big arcs on small screens */}
+          <div className="relative rounded-[28px] overflow-hidden border border-emerald-500 shadow-xl hover:shadow-2xl p-6 sm:p-7 flex flex-col min-h-[540px] md:min-h-[580px] bg-emerald-500 text-white">
             <div className="hidden md:block pointer-events-none absolute left-1/2 -translate-x-1/2 top-24 w-[560px] h-[560px] rounded-full bg-emerald-400/55"></div>
             <div className="hidden md:block pointer-events-none absolute left-1/2 -translate-x-1/2 top-[92px] w-[560px] h-[560px] rounded-full border border-emerald-300/70"></div>
 
             <div className="relative z-[1]">
               <h3 className="text-xl sm:text-2xl font-bold">Pro</h3>
               <p className="mt-1 text-emerald-50/90">Experiment the power of infinite possibilities</p>
-
               <div className="mt-6 text-center">
-                <div className="flex flex-col gap-[16px] sm:gap-[20px] items-center leading-none">
+                <div className="flex flex-col gap-4 items-center leading-none">
                   <span className="opacity-90 -mb-1 text-[18px] sm:text-[20px]">$</span>
                   <AnimatedNumber value={proPrice} className="text-5xl sm:text-6xl font-extrabold" />
                 </div>
                 <div className="mt-3 inline-block rounded-full bg-emerald-600/70 px-3 py-1 text-sm">Save $50 a year</div>
               </div>
-
               <div className="mt-6 rounded-2xl bg-white text-slate-900 p-4 sm:p-5 space-y-3.5 sm:space-y-4 shadow">
-                {[
-                  "4 Users",
-                  "All apps",
-                  "Unlimited editable exports",
-                  "Folders and collaboration",
-                  "All incoming apps",
-                ].map((f) => (
+                {["4 Users", "All apps", "Unlimited editable exports", "Folders and collaboration", "All incoming apps"].map((f) => (
                   <div key={f} className="flex items-start gap-3">
                     <span className="mt-0.5 grid place-items-center h-6 w-6 rounded-full bg-emerald-100 text-emerald-600">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
@@ -737,30 +681,24 @@ export default function Index() {
                 ))}
               </div>
             </div>
-
             <div className="relative z-[1] mt-auto pt-6">
-              <button
-                type="button"
-                className="w-full rounded-2xl px-5 py-3 bg-white text-emerald-600 hover:bg-emerald-900 hover:text-white font-medium"
-              >
+              <button type="button" className="w-full rounded-2xl px-5 py-3 bg-white text-emerald-600 hover:bg-emerald-900 hover:text-white font-medium">
                 Go to pro
               </button>
             </div>
           </div>
 
           {/* BUSINESS */}
-          <div className="relative rounded-[28px] bg-white border border-slate-100 shadow-xl hover:shadow-2xl p-6 sm:p-7 flex flex-col min-h-[520px] md:min-h-[560px]">
+          <div className="relative rounded-[28px] bg-white border border-slate-100 shadow-xl hover:shadow-2xl p-6 sm:p-7 flex flex-col min-h-[500px] md:min-h-[540px]">
             <div>
               <h3 className="text-xl sm:text-2xl font-bold">Business</h3>
               <p className="mt-1 text-slate-500">Unveil new superpowers and join the Design League</p>
-
               <div className="mt-6 text-center">
-                <div className="flex flex-col gap-[16px] sm:gap-[20px] items-center leading-none">
+                <div className="flex flex-col gap-4 items-center leading-none">
                   <span className="text-slate-400 -mb-1 text-[18px] sm:text-[20px]">$</span>
                   <AnimatedNumber value={businessPrice} className="text-5xl sm:text-6xl font-extrabold" />
                 </div>
               </div>
-
               <div className="mt-6 rounded-2xl bg-slate-50 p-4 sm:p-5 space-y-3.5 sm:space-y-4">
                 {[
                   "All the features of pro plan",
@@ -780,12 +718,8 @@ export default function Index() {
                 ))}
               </div>
             </div>
-
             <div className="mt-auto pt-6">
-              <button
-                type="button"
-                className="w-full rounded-2xl px-5 py-3 bg-emerald-50 hover:bg-emerald-500 hover:text-white text-emerald-600 font-medium"
-              >
+              <button type="button" className="w-full rounded-2xl px-5 py-3 bg-emerald-50 hover:bg-emerald-500 hover:text-white text-emerald-600 font-medium">
                 Goto Business
               </button>
             </div>
@@ -793,25 +727,22 @@ export default function Index() {
         </div>
       </section>
 
-      {/* PEOPLE ARE SAYING + GET STARTED + BICCAS + LINKS */}
+      {/* ========== SAYING + FORM + LINKS (single column on mobile) ========== */}
       <section id="contact" className="scroll-mt-[88px] bg-[#0F172A] text-slate-100">
-        <div className="container-tight py-16 lg:py-20 grid md:grid-cols-2 gap-x-12 lg:gap-x-16 gap-y-12">
-          {/* LEFT: Testimonial */}
-          <div>
-            <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-extrabold leading-tight">
+        <div className="container-tight py-14 lg:py-20 grid md:grid-cols-2 gap-x-12 lg:gap-x-16 gap-y-12">
+          {/* LEFT */}
+          <div className="text-center md:text-left">
+            <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-extrabold leading-tight">
               People are Saying
-              <br />
-              About DoWhith
+              <br />About DoWhith
             </h2>
-
-            <p className="mt-3 sm:mt-4 text-slate-400 max-w-md">
+            <p className="mt-3 sm:mt-4 text-slate-400 max-w-md mx-auto md:mx-0">
               Everything you need to accept to payment and grow your money of manage anywhere on planet
             </p>
-
             <div className="mt-4 sm:mt-6 text-6xl sm:text-7xl leading-none text-white">“</div>
 
             {/* fixed-height comment box */}
-            <div className="mt-4 sm:mt-6 max-w-xl relative h-[84px] sm:h-[96px] overflow-hidden">
+            <div className="mt-4 sm:mt-6 max-w-xl mx-auto md:mx-0 relative h-[84px] sm:h-[96px] overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.p
                   key={active}
@@ -825,10 +756,9 @@ export default function Index() {
                 </motion.p>
               </AnimatePresence>
             </div>
-
             <div className="mt-3 sm:mt-4 text-slate-400">_ {people[active].name}</div>
 
-            <ul className="mt-5 sm:mt-6 flex items-center gap-3 sm:gap-4">
+            <ul className="mt-5 sm:mt-6 flex items-center justify-center md:justify-start gap-3 sm:gap-4">
               {people.map((p, i) => {
                 const isActive = i === active;
                 return (
@@ -864,7 +794,7 @@ export default function Index() {
           </div>
 
           {/* RIGHT: Get Started form */}
-          <div className="w-full max-w-md md:ml-auto">
+          <div className="w-full max-w-md md:ml-auto mx-auto">
             <div className="rounded-2xl bg-[#1B2330] text-white shadow-soft px-6 sm:px-8 py-7 sm:py-9 ring-1 ring-slate-700">
               <div className="grid place-items-center">
                 <svg width="44" height="44" viewBox="0 0 24 24" className="text-emerald-400" fill="none">
@@ -878,28 +808,13 @@ export default function Index() {
               <form className="mt-5 sm:mt-6 space-y-3.5 sm:space-y-4">
                 <label className="block">
                   <span className="text-sm text-slate-300">Email</span>
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="mt-2 w-full rounded-lg bg-white text-slate-900 px-3.5 sm:px-4 py-2.5 outline-none"
-                  />
+                  <input type="email" placeholder="Enter your email" className="mt-2 w-full rounded-lg bg-white text-slate-900 px-3.5 sm:px-4 py-2.5 outline-none" />
                 </label>
-
                 <label className="block">
                   <span className="text-sm text-slate-300">Message</span>
-                  <textarea
-                    rows={3}
-                    placeholder="What are you say ?"
-                    className="mt-2 w-full rounded-lg bg-white text-slate-900 px-3.5 sm:px-4 py-2.5 outline-none"
-                  />
+                  <textarea rows={3} placeholder="What are you say ?" className="mt-2 w-full rounded-lg bg-white text-slate-900 px-3.5 sm:px-4 py-2.5 outline-none" />
                 </label>
-
-                <button
-                  type="button"
-                  className="w-full rounded-lg bg-emerald-500 hover:bg-emerald-600 transition text-white font-semibold py-2.5 sm:py-3"
-                >
-                  Request Demo
-                </button>
+                <button type="button" className="w-full rounded-lg bg-emerald-500 hover:bg-emerald-600 transition text-white font-semibold py-2.5 sm:py-3">Request Demo</button>
                 <div className="text-end text-slate-400 text-sm">
                   or&nbsp;<a href="#" className="text-white hover:underline">Start Free Trial</a>
                 </div>
@@ -913,7 +828,7 @@ export default function Index() {
           </div>
 
           {/* LEFT: Biccas subscribe */}
-          <div>
+          <div className="text-center md:text-left">
             <h3 className="text-2xl sm:text-3xl font-extrabold text-emerald-400">Biccas</h3>
             <p className="mt-2 text-slate-400">Get started now try our product</p>
             <div className="mt-4 sm:mt-5">
