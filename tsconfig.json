@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": [
+      "DOM",
+      "ES2022"
+    ],
+    "module": "ESNext",
+    "target": "ES2022",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "allowJs": false,
+    "noEmit": true,
+    "types": [
+      "@remix-run/node",
+      "@remix-run/react"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": [
+        "./app/*"
+      ]
+    }
+  },
+  "include": [
+    "app"
+  ]
+}
