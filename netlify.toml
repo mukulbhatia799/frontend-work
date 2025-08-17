@@ -1,0 +1,7 @@
+[build]
+  command = "npm run build"
+  publish = "build/client"
+
+# (Optional) If you want to pin Node version Netlify uses
+[build.environment]
+  NODE_VERSION = "20"

@@ -17,8 +17,6 @@ npm run build
 npm start
 ```
 
-This project uses Remix with Vite. Static images are in `/public/images` (I included your screenshots as decorative assets).
-You can replace them with your own exports from Figma.
 
 ### Where to edit
 
