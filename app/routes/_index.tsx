@@ -1,3 +1,4 @@
+// _index.tsx
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Nav } from "../components/Nav";
 import { useState, useEffect } from "react";
@@ -82,119 +83,106 @@ export default function Index() {
     <main>
       <Nav />
 
-        {/* HERO */}
-        <section id="hero" className="container-tight grid md:grid-cols-2 gap-12 pt-6 md:pt-10 pb-14 md:pb-24">
-          <div className="flex flex-col items-start justify-center">
-            {/* Title + curved swoosh */}
-            <div className="relative w-full">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: -15 }}
-                transition={{ duration: 0.7 }}
-                className="text-5xl sm:text-6xl font-extrabold leading-[1.1] pb-10 md:pb-14"
-              >
-                We’re here to <span className="text-emerald-600">Increase</span> your{" "}
-                <span>Productivity</span>
-              </motion.h1>
+      /* HERO */
+      <section
+        id="hero"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+                  grid grid-cols-1 md:grid-cols-2 md:grid-rows-2
+                  gap-x-8 gap-y-6 pt-6 md:pt-10 pb-12 md:pb-20"
+      >
+        {/* 1) HEADLINE (mobile order-1) */}
+        <div className="order-1 md:order-none md:row-start-1 md:col-start-1 flex flex-col items-center md:items-start text-center md:text-left">
+          <div className="relative w-full">
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="font-extrabold leading-[1.08] pb-9 md:pb-12 text-balance text-[clamp(2rem,6.4vw,3.75rem)]"
+            >
+              We’re here to <span className="text-emerald-600">Increase</span> your <span>Productivity</span>
+            </motion.h1>
 
-              {/* Curved swoosh (smaller + positioned like the mock) */}
-              <svg
-                aria-hidden
-                preserveAspectRatio="none"
-                className="
-                  pointer-events-none select-none
-                  absolute left-0
-                  bottom-2 md:bottom-3
-                  w-[320px] sm:w-[420px] md:w-[520px]
-                "
-                viewBox="0 0 520 80"
-                fill="none"
-              >
-                {/* back/outer stroke */}
-                <path
-                  d="M6 62 C 120 20, 400 20, 514 62"
-                  stroke="#10B981"
-                  strokeWidth="10"
-                  strokeLinecap="round"
-                />
-                {/* inner/top stroke for the two-tone look, slightly tighter curve */}
-                <path
-                  d="M6 62 C 120 32, 400 32, 514 62"
-                  stroke="#34D399"
-                  strokeWidth="7"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </div>
-
-            {/* Subtext */}
-            <p className="mt-6 text-slate-600 max-w-xl font-semibold">
-              Let's make your work more organized and easy using the Taskio dashboard with many of the latest
-              features for managing work every day.
-            </p>
-
-            {/* CTAs */}
-            <div className="mt-8 flex items-center gap-4">
-              <a href="#cta" className="btn-primary">Try free trial</a>
-              <button className="btn-ghost">View Demo</button>
-            </div>
+            {/* Curved swoosh (smaller on mobile) */}
+            <svg
+              aria-hidden
+              preserveAspectRatio="none"
+              className="pointer-events-none select-none absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 bottom-1 md:bottom-3 w-[min(78%,420px)] md:w-[min(78%,520px)]"
+              viewBox="0 0 520 80"
+              fill="none"
+            >
+              <path d="M6 62 C 120 20, 400 20, 514 62" stroke="#10B981" strokeWidth="10" strokeLinecap="round" />
+              <path d="M6 62 C 120 32, 400 32, 514 62" stroke="#34D399" strokeWidth="7" strokeLinecap="round" />
+            </svg>
           </div>
+        </div>
 
+        {/* 2) IMAGE CARD + FLOATING CHIPS (mobile order-2, spans both rows on md) */}
+        <motion.div
+          initial={{ opacity: 0, x: 18 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
+          className="order-2 md:order-none md:row-span-2 md:col-start-2 relative"
+        >
+          <div className="relative p-2 sm:p-3 isolate">
+            {/* Green board */}
+            <div className="relative overflow-hidden rounded-3xl bg-emerald-300/40 border border-emerald-200 shadow-xl
+                            w-full max-w-[520px] md:max-w-[540px] mx-auto
+                            aspect-[27/21] md:aspect-auto md:h-[430px]">
+              <svg className="absolute inset-0 w-full h-full opacity-70" viewBox="0 0 540 430" fill="none" preserveAspectRatio="none">
+                <path d="M10 300 L120 220 L200 280 L250 160 L330 240 L410 140 L530 200" stroke="#10B981" strokeWidth="8" strokeLinecap="round" />
+                <path d="M0 340 L90 260 L170 320 L230 220 L310 300 L390 180 L520 240" stroke="#059669" strokeOpacity="0.7" strokeWidth="6" strokeLinecap="round" />
+              </svg>
 
-          {/* Right visual */}
-          <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="relative">
-            <div className="relative p-4 isolate">
-              {/* Green board */}
-              <div className="relative overflow-hidden rounded-3xl bg-emerald-300/40 border border-emerald-200 shadow-xl w-full max-w-[540px] h-[430px] ml-auto">
-                <svg className="absolute inset-0 w-full h-full opacity-70" viewBox="0 0 540 430" fill="none" preserveAspectRatio="none">
-                  <path d="M10 300 L120 220 L200 280 L250 160 L330 240 L410 140 L530 200" stroke="#10B981" strokeWidth="8" strokeLinecap="round" />
-                  <path d="M0 340 L90 260 L170 320 L230 220 L310 300 L390 180 L520 240" stroke="#059669" strokeOpacity="0.7" strokeWidth="6" strokeLinecap="round" />
-                </svg>
-                <img
-                  src="/images/person.png"
-                  alt="Person"
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[420px] w-auto object-contain drop-shadow-2xl z-10"
-                />
-              </div>
+              {/* Person */}
+              <img
+                src="/images/person.png"
+                alt="Person"
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[84%] md:h-[420px] w-auto object-contain drop-shadow-2xl z-10"
+              />
 
-              {/* TOP-LEFT: Enter amount + Send (own layer) */}
+              {/* === Floating overlays (percent positions so they scale on mobile) === */}
+              {/* Enter amount */}
               <motion.div
-                className="absolute -top-4 -left-12 z-30 will-change-transform transform-gpu"
-                initial={true}
-                animate={float(10, 0.2)}
-                whileHover={{ y: -12, scale: 1.03 }}
+                className="absolute z-30 will-change-transform transform-gpu"
+                style={{ top: "3.5%", left: "5%" }}
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 3.2, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.2 }}
+                // whileHover={{ y: -10, scale: 1.03 }}
               >
-                <div className="flex items-center gap-3 bg-white rounded-2xl shadow-soft px-5 py-3">
+                <div className="flex items-center gap-3 bg-white rounded-2xl shadow-soft px-4 py-2.5 text-[clamp(0.85rem,2.6vw,1rem)]">
                   <div>
-                    <div className="text-slate-400 text-xs">Enter amount</div>
+                    <div className="text-slate-400 text-[11px] sm:text-xs">Enter amount</div>
                     <div className="font-semibold">$450.00</div>
                   </div>
-                  <button className="rounded-xl bg-emerald-500 text-white font-medium px-4 py-2">Send</button>
+                  <button className="rounded-xl bg-emerald-500 text-white font-medium px-3.5 py-1.5">Send</button>
                 </div>
               </motion.div>
 
-              {/* LEFT-MIDDLE: purple tick (own layer) */}
+              {/* Purple tick */}
               <motion.div
-                className="absolute left-[-18px] top-[165px] z-30 will-change-transform transform-gpu"
-                initial={true}
-                animate={float(8, 0.35)}
-                whileHover={{ scale: 1.05, rotate: -4 }}
+                className="absolute z-30 will-change-transform transform-gpu"
+                style={{ top: "43%", left: "3%" }}
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 3, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.35 }}
+                // whileHover={{ scale: 1.05, rotate: -4 }}
               >
-                <div className="h-9 w-9 grid place-items-center rounded-xl bg-indigo-600 text-white shadow-soft">
+                <div className="h-8 w-8 grid place-items-center rounded-xl bg-indigo-600 text-white shadow-soft">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
               </motion.div>
 
-              {/* TOP-RIGHT: orange database icon */}
+              {/* Orange database */}
               <motion.div
-                className="absolute top-4 right-6 z-30 will-change-transform transform-gpu"
-                initial={true}
-                animate={float(8, 0.5)}
+                className="absolute z-30 will-change-transform transform-gpu"
+                style={{ top: "4%", right: "4%" }}
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 3, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.5 }}
+                // whileHover={{ scale: 1.05, rotate: -4 }}
               >
-                <div className="h-10 w-10 grid place-items-center rounded-xl bg-orange-100 text-orange-700 shadow-soft">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <div className="h-9 w-9 grid place-items-center rounded-xl bg-orange-100 text-orange-700 shadow-soft">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <ellipse cx="12" cy="6" rx="6" ry="3" stroke="currentColor" strokeWidth="2" />
                     <path d="M6 6v6c0 1.7 2.7 3 6 3s6-1.3 6-3V6" stroke="currentColor" strokeWidth="2" />
                     <path d="M6 12v6c0 1.7 2.7 3 6 3s6-1.3 6-3v-6" stroke="currentColor" strokeWidth="2" />
@@ -202,20 +190,23 @@ export default function Index() {
                 </div>
               </motion.div>
 
-              {/* RIGHT-BOTTOM: tilted credit card (over the person) */}
+              {/* Credit card */}
               <motion.div
-                className="absolute bottom-12 -right-6 z-40 will-change-transform transform-gpu"
-                initial={true}
-                style={{ rotate: -10 }}
-                animate={floatTilt(-10, 0.3)}
-                whileHover={{ y: -8, rotate: -6, scale: 1.02 }}
+                className="absolute z-40 will-change-transform transform-gpu"
+                style={{ right: "3%", bottom: "10%" }}
+                animate={{ y: [0, -6, 0], rotate: [-10, -14, -10] }}
+                transition={{ duration: 3.4, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.3 }}
+                // whileHover={{ y: -8, rotate: -6, scale: 1.02 }}
               >
-                <div className="w-[200px] h-[140px] rounded-2xl bg-slate-900 text-white shadow-2xl p-4 grid grid-rows-[auto_1fr_auto] gap-2">
+                <div
+                  className="w-[170px] h-[110px] md:w-[200px] md:h-[140px] rounded-2xl bg-slate-900 text-white shadow-2xl p-4 grid grid-rows-[auto_1fr_auto] gap-2"
+                  style={{ transform: "rotate(-10deg)" }}
+                >
                   <div className="flex gap-2">
-                    <span className="h-6 w-6 rounded-full bg-slate-600/60"></span>
-                    <span className="h-6 w-6 rounded-full bg-slate-700/80"></span>
+                    <span className="h-6 w-6 rounded-full bg-slate-600/60" />
+                    <span className="h-6 w-6 rounded-full bg-slate-700/80" />
                   </div>
-                  <div className="text-sm tracking-wide opacity-90">Credit Crad</div>
+                  <div className="text-sm tracking-wide opacity-90">Credit Card</div>
                   <div className="flex items-end justify-between opacity-90">
                     <span className="tracking-[0.3em] text-sm">●●●● 1234</span>
                     <span className="text-xs">09/25</span>
@@ -223,34 +214,52 @@ export default function Index() {
                 </div>
               </motion.div>
 
-              {/* BOTTOM-LEFT: Total Income (own layer) */}
+              {/* Total income */}
               <motion.div
-                className="absolute -bottom-12 left-8 z-30 will-change-transform transform-gpu"
-                initial={true}
-                animate={float(10, 0.1)}
-                whileHover={{ y: -8, scale: 1.03 }}
+                className="absolute z-30 will-change-transform transform-gpu"
+                style={{ left: "6%", bottom: "5%" }}
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 3.2, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.1 }}
+                // whileHover={{ y: -8, scale: 1.03 }}
               >
-                <div className="bg-white rounded-2xl shadow-soft px-5 py-3 text-sm">
-                  <div className="text-slate-500 text-xs">Total Income</div>
+                <div className="bg-white rounded-2xl shadow-soft px-4 py-2.5 text-sm">
+                  <div className="text-slate-500 text-[11px] sm:text-xs">Total Income</div>
                   <div className="font-semibold">$245.00</div>
                 </div>
               </motion.div>
 
-              {/* BOTTOM-RIGHT: chat bubble */}
+              {/* Chat bubble */}
               <motion.div
-                className="absolute right-15 bottom-20 z-30 will-change-transform transform-gpu"
-                initial={true}
-                animate={float(8, 0.7)}
+                className="absolute z-30 will-change-transform transform-gpu"
+                style={{ right: "50%", bottom: "3%" }}
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 3, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 0.7 }}
+                // whileHover={{ scale: 1.05, rotate: -4 }}
               >
-                <div className="h-10 w-10 grid place-items-center rounded-xl bg-orange-100 text-orange-700 shadow-soft">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <div className="h-9 w-9 grid place-items-center rounded-xl bg-orange-100 text-orange-700 shadow-soft">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <path d="M21 11.5a7.5 7.5 0 0 1-10.5 6.8L5 20l1.7-4.7A7.5 7.5 0 1 1 21 11.5z" stroke="currentColor" strokeWidth="2" />
                   </svg>
                 </div>
               </motion.div>
             </div>
-          </motion.div>
-        </section>
+          </div>
+        </motion.div>
+
+        {/* 3) PARAGRAPH + BUTTONS (mobile order-3) */}
+        <div className="order-3 md:order-none md:row-start-2 md:col-start-1 flex flex-col items-center md:items-start text-center md:text-left">
+          <p className="text-slate-600 max-w-[42rem] font-medium text-[clamp(0.98rem,2.3vw,1.125rem)]">
+            Let’s make your work more organized and easy using the Taskio dashboard with many of the latest features for managing
+            work every day.
+          </p>
+          <div className="mt-6 md:mt-8 flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-4">
+            <a href="#cta" className="btn-primary px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-base">
+              Try free trial
+            </a>
+            <button className="btn-ghost px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-base">View Demo</button>
+          </div>
+        </div>
+      </section>
 
 
       {/* TRUSTED BY (centered under hero) */}
@@ -581,7 +590,7 @@ export default function Index() {
         <div className="container-tight grid md:grid-cols-2 gap-12 items-center">
           {/* LEFT: Title + bullets */}
           <div>
-            <h2 className="text-4xl font-extrabold">What Benifit Will You Get</h2>
+            <h2 className="text-4xl font-extrabold">What Benefit Will You Get</h2>
             <ul className="mt-8 space-y-5">
               {[
                 "Free Consulting With Experet Saving Money",
